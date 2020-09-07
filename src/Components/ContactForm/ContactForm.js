@@ -1,9 +1,8 @@
 import React from 'react';
 import styles from './ContactForm.module.css';
 import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
+
 import { connect } from 'react-redux';
 import {
   alert,
@@ -17,6 +16,7 @@ import {
   getContacts,
   getName,
 } from '../../redux/contacts/contactsSelector';
+
 const ContactForm = ({
   name,
   number,
@@ -42,42 +42,31 @@ const ContactForm = ({
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <Typography
-        component="h2"
-        variant="h5"
-        style={{
-          textAlign: 'center',
-        }}
-      >
-        Phonebook
-      </Typography>
-      <form className={styles.form} onSubmit={hendleSubmit}>
-        <TextField
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-          label="Name"
-          onChange={e => changeName(e.target.value)}
-          value={name}
-        />
-        <TextField
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-          label="Number"
-          type="number"
-          value={number}
-          onChange={e => changeNumber(e.target.value)}
-        />
+    <form className={styles.form} onSubmit={hendleSubmit}>
+      <TextField
+        variant="outlined"
+        margin="normal"
+        required
+        fullWidth
+        label="Name"
+        onChange={e => changeName(e.target.value)}
+        value={name}
+      />
+      <TextField
+        variant="outlined"
+        margin="normal"
+        required
+        fullWidth
+        label="Number"
+        type="number"
+        value={number}
+        onChange={e => changeNumber(e.target.value)}
+      />
 
-        <Button type="submit" fullWidth variant="contained" color="primary">
-          Add contact
-        </Button>
-      </form>
-    </Container>
+      <Button type="submit" fullWidth variant="contained" color="primary">
+        Add contact
+      </Button>
+    </form>
   );
 };
 

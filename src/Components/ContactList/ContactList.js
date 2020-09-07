@@ -9,7 +9,6 @@ import IconButton from '@material-ui/core/IconButton';
 import HowToReg from '@material-ui/icons/HowToReg';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Tooltip from '@material-ui/core/Tooltip';
-import Container from '@material-ui/core/Container';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import './ContactList.css';
 import Loader from '../Loader/Loader';
@@ -49,49 +48,47 @@ const ContactList = ({ contacts, removeContactProp, loader }) => {
   const classes = useStyles();
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CSSTransition
-        timeout={{ enter: 250, exit: 250 }}
-        in={contacts.length > 0}
-        unmountOnExit
-        classNames="list__item"
-      >
-        <List>
-          {loader && <Loader />}
-          <TransitionGroup>
-            {contacts.map(contact => (
-              <CSSTransition
-                timeout={{ enter: 250, exit: 250 }}
-                key={contact.id}
-                classNames="list__item"
-              >
-                <ListItem className={classes.listItem}>
-                  <ListItemAvatar>
-                    <HowToReg fontSize="large" />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={contact.name}
-                    secondary={contact.number}
-                  />
-                  <Tooltip title="Delete" placement="left">
-                    <ListItemSecondaryAction>
-                      <IconButton
-                        className={classes.btn}
-                        edge="end"
-                        aria-label="delete"
-                        onClick={() => removeContactProp(contact.id)}
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    </ListItemSecondaryAction>
-                  </Tooltip>
-                </ListItem>
-              </CSSTransition>
-            ))}
-          </TransitionGroup>
-        </List>
-      </CSSTransition>
-    </Container>
+    <CSSTransition
+      timeout={{ enter: 250, exit: 250 }}
+      in={contacts.length > 0}
+      unmountOnExit
+      classNames="list__item"
+    >
+      <List>
+        {loader && <Loader />}
+        <TransitionGroup>
+          {contacts.map(contact => (
+            <CSSTransition
+              timeout={{ enter: 250, exit: 250 }}
+              key={contact.id}
+              classNames="list__item"
+            >
+              <ListItem className={classes.listItem}>
+                <ListItemAvatar>
+                  <HowToReg fontSize="large" />
+                </ListItemAvatar>
+                <ListItemText
+                  primary={contact.name}
+                  secondary={contact.number}
+                />
+                <Tooltip title="Delete" placement="left">
+                  <ListItemSecondaryAction>
+                    <IconButton
+                      className={classes.btn}
+                      edge="end"
+                      aria-label="delete"
+                      onClick={() => removeContactProp(contact.id)}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                </Tooltip>
+              </ListItem>
+            </CSSTransition>
+          ))}
+        </TransitionGroup>
+      </List>
+    </CSSTransition>
   );
 };
 
