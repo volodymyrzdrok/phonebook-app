@@ -1,26 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component, Suspense, lazy } from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Loader from './Components/Loader/Loader';
+import Alerting from './Components/Alert/Alert';
+import Header from './Components/Header/Header';
+
+import routes from './routes';
+import { fetchContactsOperation } from './redux/contacts/contactsOperation';
+
+const ContactFormContainer = lazy(() =>
+  import('./Components/contactFormContainer'),
+);
+const Login = lazy(() => import('./Components/Login/Login'));
+const Register = lazy(() => import('./Components/Register/Register'));
+
+class App extends Component {
+  componentDidMount() {
+    this.props.contactsData();
+  }
+  render() {
+    return (
+      <>
+        <Header />
+        <Suspense fallback={<Loader />}>
+          <Switch>
+            <Route path={routes.login} component={Login} />
+            <Route path={routes.register} component={Register} />
+            <Route path={routes.contacts} component={ContactFormContainer} />
+
+            {/* <Redirect to={routes.register} /> */}
+          </Switch>
+        </Suspense>
+
+        <Alerting />
+      </>
+    );
+  }
 }
 
-export default App;
+const mapDispatchToProps = {
+  contactsData: fetchContactsOperation,
+};
+export default connect(null, mapDispatchToProps)(App);
