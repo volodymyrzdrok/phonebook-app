@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -6,18 +6,37 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { loginOperation } from '../../redux/auth/authOperation';
 
 const Login = () => {
-  const classes = useStyles();
-  const hendleSubmit = e => {
-    e.preventDefault();
+  const [form, setForm] = useState({ email: '', password: '' });
+  const dispatch = useDispatch();
 
-    // inputClear();
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setForm(state => ({
+      ...state,
+      [name]: value,
+    }));
   };
 
+  const hendleSubmit = e => {
+    e.preventDefault();
+    // console.log(form);
+    dispatch(loginOperation(form));
+    setForm({ email: '', password: '' });
+  };
+
+  const classes = useStyles();
   return (
-    <Container component="main" maxWidth="xs">
+    <Container
+      component="main"
+      maxWidth="xs"
+      style={{
+        marginTop: '10px',
+      }}
+    >
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
@@ -31,7 +50,8 @@ const Login = () => {
             margin="normal"
             required
             fullWidth
-            id="email"
+            value={form.email}
+            onChange={handleChange}
             label="Email Address"
             name="email"
             autoComplete="email"
@@ -45,13 +65,11 @@ const Login = () => {
             name="password"
             label="Password"
             type="password"
-            id="password"
+            value={form.password}
+            onChange={handleChange}
             autoComplete="current-password"
           />
-          {/* <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          /> */}
+
           <Button
             type="submit"
             fullWidth

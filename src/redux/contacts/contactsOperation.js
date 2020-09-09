@@ -10,15 +10,19 @@ import {
   removeContactError,
 } from './contactsAction';
 import axios from 'axios';
-axios.defaults.baseURL = 'http://localhost:4000';
-// axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
-// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
+// axios.defaults.baseURL = 'https://goit-phonebook-api.herokuapp.com';
+
+// axios.defaults.baseURL = 'http://localhost:4000';
+
+const options = {
+  headers: { 'Content-Type': 'application/json' },
+};
 export const addContactOperation = (name, number) => dispatch => {
   dispatch(addContactRequest());
 
   axios
-    .post('/contacts', { name, number })
+    .post('https://goit-phonebook-api.herokuapp.com/contacts', { name, number })
     .then(response => {
       dispatch(addContactSuccess(response.data));
     })
@@ -29,7 +33,7 @@ export const fetchContactsOperation = () => dispatch => {
   dispatch(fetchContactsRequest());
 
   axios
-    .get('/contacts')
+    .get('https://goit-phonebook-api.herokuapp.com/contacts')
     .then(response => {
       dispatch(fetchContactsSuccess(response.data));
     })
@@ -40,7 +44,7 @@ export const removeContactOperation = id => dispatch => {
   dispatch(removeContactRequest());
 
   axios
-    .delete(`/contacts/${id}`)
+    .delete(`https://goit-phonebook-api.herokuapp.com/contacts/${id}`)
     .then(() => {
       dispatch(removeContactSuccess(id));
     })

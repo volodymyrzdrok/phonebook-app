@@ -15,6 +15,8 @@ import {
   REMOVE_ERROR_STATUS,
 } from './constantsConstants';
 
+import { LOADER_ON, LOADER_OFF } from '../auth/errorAndLoaderAction';
+
 export const contacts = (state = [], action) => {
   switch (action.type) {
     case FETCH_SUCCESS:
@@ -77,6 +79,7 @@ export const loader = (state = false, action) => {
     case ADD_CONTACT_STATUS:
     case FETCH_REQUEST:
     case REMOVE_STATUS:
+    case LOADER_ON:
       return true;
 
     case ADD_CONTACT_SUCCESS:
@@ -85,6 +88,7 @@ export const loader = (state = false, action) => {
     case FETCH_ERROR:
     case REMOVE_CONTACT:
     case REMOVE_ERROR_STATUS:
+    case LOADER_OFF:
       return false;
 
     default:

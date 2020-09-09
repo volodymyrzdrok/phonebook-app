@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -7,18 +7,37 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-// import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { registrOperation } from '../../redux/auth/authOperation';
 
 const Register = () => {
-  const classes = useStyles();
-  const hendleSubmit = e => {
-    e.preventDefault();
+  const [form, setForm] = useState({ name: '', email: '', password: '' });
+  const dispatch = useDispatch();
 
-    // inputClear();
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setForm(state => ({
+      ...state,
+      [name]: value,
+    }));
   };
 
+  const hendleSubmit = e => {
+    e.preventDefault();
+    console.log(form);
+    dispatch(registrOperation(form));
+    setForm({ name: '', email: '', password: '' });
+  };
+
+  const classes = useStyles();
   return (
-    <Container component="main" maxWidth="xs">
+    <Container
+      component="main"
+      maxWidth="xs"
+      style={{
+        marginTop: '10px',
+      }}
+    >
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
@@ -30,13 +49,14 @@ const Register = () => {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
-                autoComplete="fname"
-                name="firstName"
+                autoComplete="name"
+                name="name"
                 variant="outlined"
                 required
                 fullWidth
-                id="firstName"
-                label=" Name"
+                value={form.name}
+                onChange={handleChange}
+                label="Name"
                 autoFocus
               />
             </Grid>
@@ -46,7 +66,8 @@ const Register = () => {
                 variant="outlined"
                 required
                 fullWidth
-                id="email"
+                value={form.email}
+                onChange={handleChange}
                 label="Email Address"
                 name="email"
                 autoComplete="email"
@@ -60,16 +81,11 @@ const Register = () => {
                 name="password"
                 label="Password"
                 type="password"
-                id="password"
+                value={form.password}
+                onChange={handleChange}
                 autoComplete="current-password"
               />
             </Grid>
-            {/* <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              />
-            </Grid> */}
           </Grid>
           <Button
             type="submit"
