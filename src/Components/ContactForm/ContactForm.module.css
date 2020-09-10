@@ -1,4 +1,6 @@
 .form {
+    z-index: 10;
+    background-color: #fff;
     margin-bottom: 15px;
     padding: 20px;
     border-radius: 4px;

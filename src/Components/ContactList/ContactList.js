@@ -89,6 +89,9 @@ const useStyles = makeStyles(theme => ({
   listItem: {
     boxShadow: '0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
     borderRadius: '4px',
+    zIndex: 10,
+    backgroundColor: '#fff',
+    marginBottom: '5px',
   },
   btn: {
     color: theme.palette.error.main,

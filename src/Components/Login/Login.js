@@ -10,6 +10,7 @@ import Container from '@material-ui/core/Container';
 import { useSelector, useDispatch } from 'react-redux';
 import { loginOperation } from '../../redux/auth/authOperation';
 import routes from '../../routes';
+import fon from './fon.png';
 
 const Login = () => {
   const [form, setForm] = useState({ email: '', password: '' });
@@ -39,66 +40,69 @@ const Login = () => {
 
   const classes = useStyles();
   return (
-    <Container
-      component="main"
-      maxWidth="xs"
-      style={{
-        marginTop: '10px',
-      }}
-    >
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h2" variant="h5">
-          Sign in
-        </Typography>
-        <form className={classes.form} noValidate onSubmit={hendleSubmit}>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            value={form.email}
-            onChange={handleChange}
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            value={form.password}
-            onChange={handleChange}
-            autoComplete="current-password"
-          />
+    <div className={classes.background}>
+      <Container
+        component="main"
+        maxWidth="xs"
+        style={{
+          marginTop: '10px',
+        }}
+      >
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h2" variant="h5">
+            Sign in
+          </Typography>
+          <form className={classes.form} noValidate onSubmit={hendleSubmit}>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              value={form.email}
+              onChange={handleChange}
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              value={form.password}
+              onChange={handleChange}
+              autoComplete="current-password"
+            />
 
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Sign In
-          </Button>
-        </form>
-      </div>
-    </Container>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Sign In
+            </Button>
+          </form>
+        </div>
+      </Container>
+    </div>
   );
 };
 export default Login;
+
 const useStyles = makeStyles(theme => ({
-  '@global': {
-    body: {
-      backgroundColor: 'fff',
-    },
+  background: {
+    backgroundImage: `url(${fon})`,
+    backgroundPosition: '25% 75%',
+    backgroundRepeat: 'repeat',
   },
   paper: {
     marginTop: theme.spacing(-1),
@@ -113,6 +117,8 @@ const useStyles = makeStyles(theme => ({
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
+    zIndex: 10,
+    backgroundColor: '#fff',
   },
   submit: {
     margin: theme.spacing(3, 0, 2),

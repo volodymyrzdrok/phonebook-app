@@ -11,6 +11,7 @@ import Container from '@material-ui/core/Container';
 import { useSelector, useDispatch } from 'react-redux';
 import { registrOperation } from '../../redux/auth/authOperation';
 import routes from '../../routes';
+import fon from './fon.png';
 
 const Register = () => {
   const [form, setForm] = useState({ name: '', email: '', password: '' });
@@ -38,84 +39,85 @@ const Register = () => {
 
   const classes = useStyles();
   return (
-    <Container
-      component="main"
-      maxWidth="xs"
-      style={{
-        marginTop: '10px',
-      }}
-    >
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h2" variant="h5">
-          Sign up
-        </Typography>
-        <form className={classes.form} noValidate onSubmit={hendleSubmit}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                autoComplete="name"
-                name="name"
-                variant="outlined"
-                required
-                fullWidth
-                value={form.name}
-                onChange={handleChange}
-                label="Name"
-                autoFocus
-              />
-            </Grid>
+    <div className={classes.background}>
+      <Container
+        component="main"
+        maxWidth="xs"
+        style={{
+          marginTop: '10px',
+        }}
+      >
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h2" variant="h5">
+            Sign up
+          </Typography>
+          <form className={classes.form} noValidate onSubmit={hendleSubmit}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  autoComplete="name"
+                  name="name"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  value={form.name}
+                  onChange={handleChange}
+                  label="Name"
+                  autoFocus
+                />
+              </Grid>
 
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                value={form.email}
-                onChange={handleChange}
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-              />
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  value={form.email}
+                  onChange={handleChange}
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  value={form.password}
+                  onChange={handleChange}
+                  autoComplete="current-password"
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                value={form.password}
-                onChange={handleChange}
-                autoComplete="current-password"
-              />
-            </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Sign Up
-          </Button>
-        </form>
-      </div>
-    </Container>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Sign Up
+            </Button>
+          </form>
+        </div>
+      </Container>
+    </div>
   );
 };
 
 export default Register;
 
 const useStyles = makeStyles(theme => ({
-  '@global': {
-    body: {
-      backgroundColor: 'fff',
-    },
+  background: {
+    backgroundImage: `url(${fon})`,
+    backgroundPosition: '199% 270%',
   },
   paper: {
     marginTop: theme.spacing(-1),
@@ -130,6 +132,8 @@ const useStyles = makeStyles(theme => ({
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(3),
+    zIndex: 10,
+    backgroundColor: '#fff',
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
