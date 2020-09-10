@@ -8,12 +8,15 @@ import { makeStyles } from '@material-ui/core/styles';
 import routes from '../../routes';
 import Button from '@material-ui/core/Button';
 import avatar from './leo.png';
+// import ContactMail from '@material-ui/icons/ContactMail';
 import { logOut } from '../../redux/auth/authOperation';
 
 export default function Header() {
   const classes = useStyles();
 
   const token = useSelector(state => state.token);
+  const userName = useSelector(state => state.userName);
+
   const dispatch = useDispatch();
   const logUotSubmit = e => {
     e.preventDefault();
@@ -75,8 +78,12 @@ export default function Header() {
               >
                 phonebook
               </NavLink>
-              <span className={classes.link}>Welcome,{' name'}</span>
-              <img src={avatar} alt="" width="50" />
+              <span className={classes.link}>Welcome,{userName}</span>
+              <img src={avatar} alt="user" width="50" />
+              {/* <a href="mailto:regerg@gmail.com" className={classes.link}>
+                <ContactMail />
+              </a> */}
+
               <Button
                 onClick={logUotSubmit}
                 color="primary"

@@ -1,18 +1,7 @@
-// import { createAction } from '@reduxjs/toolkit';
-
-// //
-// //
-// //
-// export const registerRequest = createAction('auth/registerRequest');
-// export const registerSuccess = createAction('auth/registerSuccess');
-// export const registerError = createAction('auth/registerError');
-
-// export const loginRequest = createAction('auth/loginRequest');
-// export const loginSuccess = createAction('auth/loginSuccess');
-// export const loginError = createAction('auth/loginError');
-
 export const SET_TOKEN = '@token/set';
 export const RESET_TOKEN = '@token/reset';
+export const SET_USER_NAME = '@user/add_user_name';
+export const RESET_USER_NAME = '@user/remove_user_name';
 
 export const setToken = token => ({
   type: SET_TOKEN,
@@ -21,4 +10,12 @@ export const setToken = token => ({
 
 export const resetToken = () => ({
   type: RESET_TOKEN,
+});
+
+export const setUserName = userName => ({
+  type: SET_USER_NAME,
+  payload: userName,
+});
+export const resetUserName = () => ({
+  type: RESET_USER_NAME,
 });

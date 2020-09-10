@@ -26,6 +26,7 @@ const ContactForm = ({
   changeName,
   changeNumber,
   inputClear,
+  token,
 }) => {
   const hendleSubmit = e => {
     e.preventDefault();
@@ -36,7 +37,7 @@ const ContactForm = ({
         alert();
       }, 2800);
     } else {
-      addContact(name, number);
+      addContact({ name, number }, token);
     }
     inputClear();
   };
@@ -74,6 +75,7 @@ const mapStateToProps = state => ({
   contacts: getContacts(state),
   name: getName(state),
   number: getNumber(state),
+  token: state.token,
 });
 
 const mapDispatchToProps = {

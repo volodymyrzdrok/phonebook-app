@@ -12,6 +12,7 @@ import {
   loader,
 } from './contacts/contactsReducer';
 import token from './auth/authReducer';
+import { userName } from './auth/authReducer';
 
 const middleWares = [thunk];
 const rootMiddleWares = applyMiddleware(...middleWares);
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   number,
   loader,
   token,
+  userName,
 });
 const persistConfig = {
   key: 'token',
@@ -37,64 +39,3 @@ const store = createStore(
 );
 export const persistor = persistStore(store);
 export default store;
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// import { composeWithDevTools } from 'redux-devtools-extension';
-// import { createStore, combineReducers, applyMiddleware } from 'redux';
-// import thunk from 'redux-thunk';
-// import {
-//   filter,
-//   contacts,
-//   alert,
-//   name,
-//   number,
-//   loader,
-// } from './contacts/contactsReducer';
-// import token from './auth/authReducer';
-// const middleWares = [thunk];
-// const rootMiddleWares = applyMiddleware(...middleWares);
-// const rootReducer = combineReducers({
-//   filter,
-//   contacts,
-//   alert,
-//   name,
-//   number,
-//   loader,
-//   token,
-// });
-
-// const store = createStore(rootReducer, composeWithDevTools(rootMiddleWares));
-
-// export default store;
-
-// import { composeWithDevTools } from 'redux-devtools-extension';
-// import { applyMiddleware } from 'redux';
-// import { configureStore } from '@reduxjs/toolkit';
-// import thunk from 'redux-thunk';
-// import {
-//   filter,
-//   contacts,
-//   alert,
-//   name,
-//   number,
-//   loader,
-// } from './contacts/contactsReducer';
-
-// const middleWares = [thunk];
-// const rootMiddleWares = applyMiddleware(...middleWares);
-
-// const store = configureStore(
-//   {
-//     reducer: {
-//       filter,
-//       contacts,
-//       alert,
-//       name,
-//       number,
-//       loader,
-//     },
-//   },
-//   composeWithDevTools(rootMiddleWares),
-// );
-
-// export default store;

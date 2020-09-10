@@ -1,17 +1,20 @@
 import axios from 'axios';
 import { loaderOff, loaderOn, errorOn } from './errorAndLoaderAction';
-import { setToken, resetToken } from './authAction.js';
+import {
+  setToken,
+  resetToken,
+  setUserName,
+  resetUserName,
+} from './authAction.js';
 
-// axios.defaults.baseURL = 'https://goit-phonebook-api.herokuapp.com';
+axios.defaults.baseURL = 'https://goit-phonebook-api.herokuapp.com';
 
 export const registrOperation = userData => async dispatch => {
   try {
     dispatch(loaderOn());
-    const result = await axios.post(
-      'https://goit-phonebook-api.herokuapp.com/users/signup',
-      userData,
-    );
+    const result = await axios.post('/users/signup', userData);
     dispatch(setToken(result.data.token));
+    dispatch(setUserName(result.data.user.name));
   } catch {
     dispatch(errorOn('erooororrr'));
   } finally {
@@ -22,11 +25,9 @@ export const registrOperation = userData => async dispatch => {
 export const loginOperation = userData => async dispatch => {
   try {
     dispatch(loaderOn());
-    const result = await axios.post(
-      'https://goit-phonebook-api.herokuapp.com/users/login',
-      userData,
-    );
+    const result = await axios.post('/users/login', userData);
     dispatch(setToken(result.data.token));
+    dispatch(setUserName(result.data.user.name));
   } catch {
     dispatch(errorOn('erooororrr'));
   } finally {
@@ -38,12 +39,13 @@ export const logOut = token => async dispatch => {
   try {
     dispatch(loaderOn());
     await axios({
-      url: 'https://goit-phonebook-api.herokuapp.com/users/logout',
+      url: '/users/logout',
       method: 'post',
       headers: { Authorization: `Bearer ${token}` },
     });
 
     dispatch(resetToken());
+    dispatch(resetUserName());
   } catch {
     dispatch(errorOn('erooororrr'));
   } finally {

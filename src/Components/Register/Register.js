@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -7,12 +8,19 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { registrOperation } from '../../redux/auth/authOperation';
+import routes from '../../routes';
 
 const Register = () => {
   const [form, setForm] = useState({ name: '', email: '', password: '' });
   const dispatch = useDispatch();
+  const history = useHistory();
+  const token = useSelector(state => state.token);
+
+  useEffect(() => {
+    token && history.push(routes.contacts);
+  }, [history, token]);
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -24,7 +32,6 @@ const Register = () => {
 
   const hendleSubmit = e => {
     e.preventDefault();
-    console.log(form);
     dispatch(registrOperation(form));
     setForm({ name: '', email: '', password: '' });
   };

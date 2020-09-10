@@ -19,32 +19,7 @@ import {
   getVisibleContacts,
 } from '../../redux/contacts/contactsSelector';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-    maxWidth: 752,
-  },
-  demo: {
-    backgroundColor: theme.palette.background.paper,
-  },
-  listItem: {
-    boxShadow: '0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
-    borderRadius: '4px',
-  },
-  btn: {
-    color: theme.palette.error.main,
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.primary.main,
-  },
-
-  tooltip: {
-    backgroundColor: theme.palette.common.black,
-  },
-}));
-
-const ContactList = ({ contacts, removeContactProp, loader }) => {
+const ContactList = ({ contacts, removeContactProp, loader, token }) => {
   const classes = useStyles();
 
   return (
@@ -77,7 +52,7 @@ const ContactList = ({ contacts, removeContactProp, loader }) => {
                       className={classes.btn}
                       edge="end"
                       aria-label="delete"
-                      onClick={() => removeContactProp(contact.id)}
+                      onClick={() => removeContactProp(contact.id, token)}
                     >
                       <DeleteIcon />
                     </IconButton>
@@ -95,9 +70,35 @@ const ContactList = ({ contacts, removeContactProp, loader }) => {
 const mapStateToProps = state => ({
   contacts: getVisibleContacts(state),
   loader: getLoader(state),
+  token: state.token,
 });
 
 const mapDispatchToProps = {
   removeContactProp: removeContactOperation,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ContactList);
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+    maxWidth: 752,
+  },
+  demo: {
+    backgroundColor: theme.palette.background.paper,
+  },
+  listItem: {
+    boxShadow: '0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
+    borderRadius: '4px',
+  },
+  btn: {
+    color: theme.palette.error.main,
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.primary.main,
+  },
+
+  tooltip: {
+    backgroundColor: theme.palette.common.black,
+  },
+}));

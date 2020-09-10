@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -6,12 +7,20 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { loginOperation } from '../../redux/auth/authOperation';
+import routes from '../../routes';
 
 const Login = () => {
   const [form, setForm] = useState({ email: '', password: '' });
   const dispatch = useDispatch();
+
+  const token = useSelector(state => state.token);
+  const history = useHistory();
+
+  useEffect(() => {
+    token && history.push(routes.contacts);
+  }, [history, token]);
 
   const handleChange = e => {
     const { name, value } = e.target;
