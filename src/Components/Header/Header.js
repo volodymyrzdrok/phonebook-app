@@ -78,11 +78,8 @@ export default function Header() {
               >
                 phonebook
               </NavLink>
-              <span className={classes.link}>Welcome,{userName}</span>
+              <span className={classes.linkUserName}>Welcome,{userName}</span>
               <img src={avatar} alt="user" width="50" />
-              {/* <a href="mailto:regerg@gmail.com" className={classes.link}>
-                <ContactMail />
-              </a> */}
 
               <Button
                 onClick={logUotSubmit}
@@ -128,6 +125,15 @@ const useStyles = makeStyles(theme => ({
     color: '#3f51b5',
     letterSpacing: '0.02857em',
     textTransform: 'uppercase',
+    fontWeight: '600',
+  },
+  linkUserName: {
+    margin: theme.spacing(1, 1.5),
+    textDecoration: 'none',
+    fontSize: '0.875rem',
+    color: '#3f51b5',
+    letterSpacing: '0.02857em',
+    textTransform: 'capitalize',
     fontWeight: '600',
   },
   linkActive: {
