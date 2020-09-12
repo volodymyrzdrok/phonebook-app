@@ -3,7 +3,7 @@ import styles from './ContactForm.module.css';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   alert,
   changeName,
@@ -17,29 +17,25 @@ import {
   getName,
 } from '../../redux/contacts/contactsSelector';
 
-const ContactForm = ({
-  name,
-  number,
-  contacts,
-  addContact,
-  alert,
-  changeName,
-  changeNumber,
-  inputClear,
-  token,
-}) => {
+const ContactForm = () => {
+  const contacts = useSelector(state => getContacts(state));
+  const name = useSelector(state => getName(state));
+  const number = useSelector(state => getNumber(state));
+  const token = useSelector(state => state.token);
+  const dispatch = useDispatch();
+
   const hendleSubmit = e => {
     e.preventDefault();
 
     if (contacts.find(contact => contact.name === name)) {
-      alert();
+      dispatch(alert());
       setTimeout(() => {
-        alert();
+        dispatch(alert());
       }, 2800);
     } else {
-      addContact({ name, number }, token);
+      dispatch(addContactOperation({ name, number }, token));
     }
-    inputClear();
+    dispatch(inputClear());
   };
 
   return (
@@ -50,7 +46,7 @@ const ContactForm = ({
         required
         fullWidth
         label="Name"
-        onChange={e => changeName(e.target.value)}
+        onChange={e => dispatch(changeName(e.target.value))}
         value={name}
       />
       <TextField
@@ -61,7 +57,7 @@ const ContactForm = ({
         label="Number"
         type="number"
         value={number}
-        onChange={e => changeNumber(e.target.value)}
+        onChange={e => dispatch(changeNumber(e.target.value))}
       />
 
       <Button type="submit" fullWidth variant="contained" color="primary">
@@ -71,19 +67,4 @@ const ContactForm = ({
   );
 };
 
-const mapStateToProps = state => ({
-  contacts: getContacts(state),
-  name: getName(state),
-  number: getNumber(state),
-  token: state.token,
-});
-
-const mapDispatchToProps = {
-  addContact: addContactOperation,
-  alert: alert,
-  changeName: changeName,
-  changeNumber: changeNumber,
-  inputClear: inputClear,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);
+export default ContactForm;

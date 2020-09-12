@@ -13,15 +13,20 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import './ContactList.css';
 import Loader from '../Loader/Loader';
 import { removeContactOperation } from '../../redux/contacts/contactsOperation';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   getLoader,
   getVisibleContacts,
 } from '../../redux/contacts/contactsSelector';
 
-const ContactList = ({ contacts, removeContactProp, loader, token }) => {
-  const classes = useStyles();
+const ContactList = () => {
+  const contacts = useSelector(state => getVisibleContacts(state));
+  const loader = useSelector(state => getLoader(state));
+  const token = useSelector(state => state.token);
 
+  const dispatch = useDispatch();
+
+  const classes = useStyles();
   return (
     <CSSTransition
       timeout={{ enter: 250, exit: 250 }}
@@ -52,7 +57,9 @@ const ContactList = ({ contacts, removeContactProp, loader, token }) => {
                       className={classes.btn}
                       edge="end"
                       aria-label="delete"
-                      onClick={() => removeContactProp(contact.id, token)}
+                      onClick={() =>
+                        dispatch(removeContactOperation(contact.id, token))
+                      }
                     >
                       <DeleteIcon />
                     </IconButton>
@@ -67,16 +74,7 @@ const ContactList = ({ contacts, removeContactProp, loader, token }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  contacts: getVisibleContacts(state),
-  loader: getLoader(state),
-  token: state.token,
-});
-
-const mapDispatchToProps = {
-  removeContactProp: removeContactOperation,
-};
-export default connect(mapStateToProps, mapDispatchToProps)(ContactList);
+export default ContactList;
 
 const useStyles = makeStyles(theme => ({
   root: {

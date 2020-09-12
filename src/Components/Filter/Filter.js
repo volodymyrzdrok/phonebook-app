@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { changeFilter } from '../../redux/contacts/contactsAction';
 import { getFilter, getContacts } from '../../redux/contacts/contactsSelector';
 
@@ -9,7 +9,7 @@ import { CSSTransition } from 'react-transition-group';
 const useStyles = makeStyles(theme => ({
   root: {
     '& > *': {
-      margin: theme.spacing(1),
+      margin: theme.spacing(0),
       width: '100%',
       zIndex: 10,
       backgroundColor: '#fff',
@@ -17,7 +17,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Filter = ({ valueFilter, changeFilterProp, contacts }) => {
+const Filter = () => {
+  const contacts = useSelector(state => getContacts(state));
+  const valueFilter = useSelector(state => getFilter(state));
+  const dispatch = useDispatch();
   const classes = useStyles();
   return (
     <CSSTransition
@@ -31,17 +34,11 @@ const Filter = ({ valueFilter, changeFilterProp, contacts }) => {
         <TextField
           label="Find contact by name"
           value={valueFilter}
-          onChange={e => changeFilterProp(e.target.value)}
+          onChange={e => dispatch(changeFilter(e.target.value))}
         />
       </form>
     </CSSTransition>
   );
 };
 
-const mapStateToProps = state => ({
-  contacts: getContacts(state),
-  valueFilter: getFilter(state),
-});
-const mapDispatchToProps = { changeFilterProp: changeFilter };
-
-export default connect(mapStateToProps, mapDispatchToProps)(Filter);
+export default Filter;

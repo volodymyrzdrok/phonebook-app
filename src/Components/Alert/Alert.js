@@ -1,10 +1,11 @@
 import React from 'react';
 import Alert from '@material-ui/lab/Alert';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getAlert } from '../../redux/contacts/contactsSelector';
 import { CSSTransition } from 'react-transition-group';
 
-const Alerting = ({ alert }) => {
+const Alerting = () => {
+  const alert = useSelector(state => getAlert(state));
   return (
     <CSSTransition
       timeout={250}
@@ -20,8 +21,4 @@ const Alerting = ({ alert }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  alert: getAlert(state),
-});
-
-export default connect(mapStateToProps)(Alerting);
+export default Alerting;
