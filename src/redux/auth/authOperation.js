@@ -1,11 +1,18 @@
 import axios from 'axios';
-import { loaderOff, loaderOn, errorOn } from './errorAndLoaderAction';
+// import { loaderOff, loaderOn, errorOn } from './errorAndLoaderAction';
+// import {
+//   setToken,
+//   resetToken,
+//   setUserName,
+//   resetUserName,
+// } from './authAction.js';
+
+import { setToken, resetToken, setUserName, resetUserName } from '../slice';
 import {
-  setToken,
-  resetToken,
-  setUserName,
-  resetUserName,
-} from './authAction.js';
+  loaderOff,
+  loaderOn,
+  // errorOn
+} from '../slice';
 
 axios.defaults.baseURL = 'https://goit-phonebook-api.herokuapp.com';
 
@@ -16,7 +23,7 @@ export const registrOperation = userData => async dispatch => {
     dispatch(setToken(result.data.token));
     dispatch(setUserName(result.data.user.name));
   } catch {
-    dispatch(errorOn('erooororrr'));
+    // dispatch(errorOn('erooororrr'));
   } finally {
     dispatch(loaderOff());
   }
@@ -29,7 +36,7 @@ export const loginOperation = userData => async dispatch => {
     dispatch(setToken(result.data.token));
     dispatch(setUserName(result.data.user.name));
   } catch {
-    dispatch(errorOn('erooororrr'));
+    // dispatch(errorOn('erooororrr'));
   } finally {
     dispatch(loaderOff());
   }
@@ -47,7 +54,7 @@ export const logOut = token => async dispatch => {
     dispatch(resetToken());
     dispatch(resetUserName());
   } catch {
-    dispatch(errorOn('erooororrr'));
+    // dispatch(errorOn('erooororrr'));
   } finally {
     dispatch(loaderOff());
   }

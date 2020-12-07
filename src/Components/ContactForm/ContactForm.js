@@ -4,12 +4,21 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
 import { useSelector, useDispatch } from 'react-redux';
+// import {
+//   alert,
+//   changeName,
+//   changeNumber,
+//   inputClear,
+// } from '../../redux/contacts/contactsAction';
+
 import {
-  alert,
+  alertAction,
   changeName,
   changeNumber,
   inputClear,
-} from '../../redux/contacts/contactsAction';
+  inputClearNumber,
+} from '../../redux/slice';
+
 import { addContactOperation } from '../../redux/contacts/contactsOperation';
 import {
   getNumber,
@@ -28,14 +37,15 @@ const ContactForm = () => {
     e.preventDefault();
 
     if (contacts.find(contact => contact.name === name)) {
-      dispatch(alert());
+      dispatch(alertAction());
       setTimeout(() => {
-        dispatch(alert());
+        dispatch(alertAction());
       }, 2800);
     } else {
       dispatch(addContactOperation({ name, number }, token));
     }
     dispatch(inputClear());
+    dispatch(inputClearNumber());
   };
 
   return (

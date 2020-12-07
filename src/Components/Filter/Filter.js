@@ -2,7 +2,8 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { useSelector, useDispatch } from 'react-redux';
-import { changeFilter } from '../../redux/contacts/contactsAction';
+// import { changeFilter } from '../../redux/contacts/contactsAction';
+import { changeFilter } from '../../redux/slice';
 import { getFilter, getContacts } from '../../redux/contacts/contactsSelector';
 
 import { CSSTransition } from 'react-transition-group';

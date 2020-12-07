@@ -1,3 +1,14 @@
+// import {
+//   addContactRequest,
+//   addContactSuccess,
+//   addContactError,
+//   fetchContactsRequest,
+//   fetchContactsSuccess,
+//   fetchContactsError,
+//   removeContactRequest,
+//   removeContactSuccess,
+//   removeContactError,
+// } from './contactsAction';
 import {
   addContactRequest,
   addContactSuccess,
@@ -8,7 +19,9 @@ import {
   removeContactRequest,
   removeContactSuccess,
   removeContactError,
-} from './contactsAction';
+  loaderOff,
+  loaderOn,
+} from '../slice';
 import axios from 'axios';
 
 axios.defaults.baseURL = 'https://goit-phonebook-api.herokuapp.com';
@@ -22,12 +35,12 @@ export const addContactOperation = (obj, token) => async dispatch => {
       headers: { Authorization: `Bearer ${token}` },
       data: obj,
     });
-
+    dispatch(loaderOn());
     dispatch(addContactSuccess(result.data));
   } catch {
     dispatch(addContactError('erooororrr'));
   } finally {
-    // dispatch(loaderOff());
+    dispatch(loaderOff());
   }
 };
 
@@ -39,12 +52,12 @@ export const fetchContactsOperation = token => async dispatch => {
       method: 'get',
       headers: { Authorization: `Bearer ${token}` },
     });
-
+    dispatch(loaderOn());
     dispatch(fetchContactsSuccess(result.data));
   } catch {
     dispatch(fetchContactsError('erooororrr'));
   } finally {
-    // dispatch(loaderOff());
+    dispatch(loaderOff());
   }
 };
 
@@ -56,10 +69,11 @@ export const removeContactOperation = (id, token) => async dispatch => {
       method: 'delete',
       headers: { Authorization: `Bearer ${token}` },
     });
+    dispatch(loaderOn());
     dispatch(removeContactSuccess(id));
   } catch {
     dispatch(removeContactError('erooororrr'));
   } finally {
-    // dispatch(loaderOff());
+    dispatch(loaderOff());
   }
 };
